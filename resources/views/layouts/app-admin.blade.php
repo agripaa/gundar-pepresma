@@ -52,62 +52,126 @@
         <!-- Sidebar (fixed) -->
         <aside class="w-64 bg-white h-screen shadow-lg fixed z-30 top-16 left-0 pt-6 flex flex-col justify-between">
             <div class="px-4">
+                @php
+                    $isPrestasiOpen = Route::is('list-prestasi') || Route::is('tambah-prestasi') || Route::is('laporan') || Route::is('prestasi.*');
+                    $isKampusOpen = Route::is('mahasiswa.*') || Route::is('dospem.*') || Route::is('fakultas.*') || Route::is('prodi.*');
+                    $isMasterOpen = Route::is('list-master-data') || Route::is('master-data.*');
+                    $isPengaturanOpen = Route::is('list-admin') || Route::is('manage-visitor');
+                @endphp
                 <ul class="space-y-4">
-                    <div class="group">
-                        <a href="javascript:void(0)" class="block px-4 py-2 {{ Route::is('list-*') ? 'text-purple-600 bg-purple-100' : 'text-gray-700 hover:text-purple-600 hover:bg-purple-100' }} rounded-lg font-semibold">
-                            List Data
-                        </a>
-                        <ul class="ml-4 mt-2 space-y-2 hidden group-hover:block">
+                    <li>
+                        <button
+                            type="button"
+                            data-collapse-toggle="sidebar-prestasi"
+                            aria-expanded="{{ $isPrestasiOpen ? 'true' : 'false' }}"
+                            class="w-full flex items-center justify-between px-4 py-2 {{ $isPrestasiOpen ? 'text-purple-600 bg-purple-100' : 'text-gray-700 hover:text-purple-600 hover:bg-purple-100' }} rounded-lg font-semibold"
+                        >
+                            <span>Data Prestasi</span>
+                            <svg class="w-4 h-4 transition-transform duration-200 {{ $isPrestasiOpen ? 'rotate-180' : '' }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <ul id="sidebar-prestasi" class="ml-4 space-y-2 overflow-hidden transition-all duration-300 ease-in-out {{ $isPrestasiOpen ? 'mt-2 max-h-[520px] opacity-100 pointer-events-auto' : 'mt-0 max-h-0 opacity-0 pointer-events-none' }}">
                             <li>
                                 <a href="{{ route('list-prestasi') }}" class="block px-4 py-2 {{ Route::is('list-prestasi') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">List Prestasi</a>
                             </li>
-                            @if (Auth::user()->role == 1)
                             <li>
-                                <a href="{{ route('list-admin') }}" class="block px-4 py-2 {{ Route::is('list-admin') ? 'text-purple-600 bg-purple-200 border-l-4 border-purple-600' : 'text-black hover:text-purple-600 hover:bg-purple-200' }} rounded-lg">List Admin</a>
+                                <a href="{{ route('tambah-prestasi') }}" class="block px-4 py-2 {{ Route::is('tambah-prestasi') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Tambah Prestasi</a>
                             </li>
                             <li>
-                                <a href="{{ route('list-master-data') }}" class="block px-4 py-2 {{ Route::is('list-master-data') ? 'text-purple-600 bg-purple-200 border-l-4 border-purple-600' : 'text-black hover:text-purple-600 hover:bg-purple-200' }} rounded-lg">List Master Data</a>
+                                <a href="{{ route('laporan') }}" class="block px-4 py-2 {{ Route::is('laporan') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Laporan</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <button
+                            type="button"
+                            data-collapse-toggle="sidebar-kampus"
+                            aria-expanded="{{ $isKampusOpen ? 'true' : 'false' }}"
+                            class="w-full flex items-center justify-between px-4 py-2 {{ $isKampusOpen ? 'text-purple-600 bg-purple-100' : 'text-gray-700 hover:text-purple-600 hover:bg-purple-100' }} rounded-lg font-semibold"
+                        >
+                            <span>Data Kampus</span>
+                            <svg class="w-4 h-4 transition-transform duration-200 {{ $isKampusOpen ? 'rotate-180' : '' }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <ul id="sidebar-kampus" class="ml-4 space-y-2 overflow-hidden transition-all duration-300 ease-in-out {{ $isKampusOpen ? 'mt-2 max-h-[520px] opacity-100 pointer-events-auto' : 'mt-0 max-h-0 opacity-0 pointer-events-none' }}">
+                            <li>
+                                <a href="{{ route('mahasiswa.index') }}" class="block px-4 py-2 {{ Route::is('mahasiswa.*') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Mahasiswa</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('dospem.index') }}" class="block px-4 py-2 {{ Route::is('dospem.*') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Dosen Pendamping</a>
+                            </li>
+                            @if (Auth::user()->role == 1)
+                            <li>
+                                <a href="{{ route('fakultas.index') }}" class="block px-4 py-2 {{ Route::is('fakultas.*') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Fakultas</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('prodi.index') }}" class="block px-4 py-2 {{ Route::is('prodi.*') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Program Studi</a>
                             </li>
                             @endif
                         </ul>
-                    </div>
-                    <li>
-                        <div class="group">
-                            <a href="javascript:void(0)" class="block px-4 py-2 {{ Route::is('tambah-*') ? 'text-purple-600 bg-purple-100' : 'text-gray-700 hover:text-purple-600 hover:bg-purple-100' }} rounded-lg font-semibold">
-                                Tambah Data
-                            </a>
-                            <ul class="ml-4 mt-2 space-y-2 hidden group-hover:block">
-                                <li>
-                                    <a href="{{ route('tambah-mahasiswa') }}" class="block px-4 py-2 {{ Route::is('tambah-mahasiswa') ? 'text-purple-600 bg-purple-200 border-l-4 border-purple-600' : 'text-black hover:text-purple-600 hover:bg-purple-200' }} rounded-lg">Mahasiswa</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('tambah-dospem') }}" class="block px-4 py-2 {{ Route::is('tambah-dospem') ? 'text-purple-600 bg-purple-200 border-l-4 border-purple-600' : 'text-black hover:text-purple-600 hover:bg-purple-200' }} rounded-lg">Dosen Pendamping</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('tambah-prestasi') }}" class="block px-4 py-2 {{ Route::is('tambah-prestasi') ? 'text-purple-600 bg-purple-200 border-l-4 border-purple-600' : 'text-black hover:text-purple-600 hover:bg-purple-200' }} rounded-lg">Prestasi</a>
-                                </li>
-                                @if (Auth::user()->role == 1)
-                                <li>
-                                    <a href="{{ route('tambah-fakultas') }}" class="block px-4 py-2 {{ Route::is('tambah-fakultas') ? 'text-purple-600 bg-purple-200 border-l-4 border-purple-600' : 'text-black hover:text-purple-600 hover:bg-purple-200' }} rounded-lg">Fakultas</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('tambah-prodi') }}" class="block px-4 py-2 {{ Route::is('tambah-prodi') ? 'text-purple-600 bg-purple-200 border-l-4 border-purple-600' : 'text-black hover:text-purple-600 hover:bg-purple-200' }} rounded-lg">Program Studi</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('tambah-master-data') }}" class="block px-4 py-2 {{ Route::is('tambah-master-data') ? 'text-purple-600 bg-purple-200 border-l-4 border-purple-600' : 'text-black hover:text-purple-600 hover:bg-purple-200' }} rounded-lg">Master Data</a>
-                                </li>
-                                @endif
-                            </ul>
-                        </div>
                     </li>
-        
-                    <li>
-                        <a href="{{ route('laporan') }}" class="block px-4 py-2 {{ Route::is('laporan') ? 'text-purple-600 bg-purple-200 border-l-4 border-purple-600' : 'text-black hover:text-purple-600 hover:bg-purple-200' }} rounded-lg">Laporan</a>
-                    </li>
+
                     @if (Auth::user()->role == 1)
-                        <li>
-                            <a href="{{ route('manage-visitor') }}" class="block px-4 py-2 {{ Route::is('manage-visitor') ? 'text-purple-600 bg-purple-200 border-l-4 border-purple-600' : 'text-black hover:text-purple-600 hover:bg-purple-200' }} rounded-lg">Manage Visitor</a>
-                        </li>
+                    <li>
+                        <button
+                            type="button"
+                            data-collapse-toggle="sidebar-master"
+                            aria-expanded="{{ $isMasterOpen ? 'true' : 'false' }}"
+                            class="w-full flex items-center justify-between px-4 py-2 {{ $isMasterOpen ? 'text-purple-600 bg-purple-100' : 'text-gray-700 hover:text-purple-600 hover:bg-purple-100' }} rounded-lg font-semibold"
+                        >
+                            <span>Master Data</span>
+                            <svg class="w-4 h-4 transition-transform duration-200 {{ $isMasterOpen ? 'rotate-180' : '' }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <ul id="sidebar-master" class="ml-4 space-y-2 overflow-hidden transition-all duration-300 ease-in-out {{ $isMasterOpen ? 'mt-2 max-h-[520px] opacity-100 pointer-events-auto' : 'mt-0 max-h-0 opacity-0 pointer-events-none' }}">
+                            <li>
+                                <a href="{{ route('list-master-data') }}" class="block px-4 py-2 {{ Route::is('list-master-data') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Overview</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master-data.kepesertaan') }}" class="block px-4 py-2 {{ Route::is('master-data.kepesertaan') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Kepesertaan</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master-data.kategori') }}" class="block px-4 py-2 {{ Route::is('master-data.kategori') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Kategori Lomba</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master-data.prestasi') }}" class="block px-4 py-2 {{ Route::is('master-data.prestasi') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Prestasi</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master-data.capaian-juara') }}" class="block px-4 py-2 {{ Route::is('master-data.capaian-juara') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Capaian Juara</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master-data.posisi') }}" class="block px-4 py-2 {{ Route::is('master-data.posisi') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Posisi Peserta</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
+
+                    @if (Auth::user()->role == 1)
+                    <li>
+                        <button
+                            type="button"
+                            data-collapse-toggle="sidebar-pengaturan"
+                            aria-expanded="{{ $isPengaturanOpen ? 'true' : 'false' }}"
+                            class="w-full flex items-center justify-between px-4 py-2 {{ $isPengaturanOpen ? 'text-purple-600 bg-purple-100' : 'text-gray-700 hover:text-purple-600 hover:bg-purple-100' }} rounded-lg font-semibold"
+                        >
+                            <span>Pengaturan</span>
+                            <svg class="w-4 h-4 transition-transform duration-200 {{ $isPengaturanOpen ? 'rotate-180' : '' }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <ul id="sidebar-pengaturan" class="ml-4 space-y-2 overflow-hidden transition-all duration-300 ease-in-out {{ $isPengaturanOpen ? 'mt-2 max-h-[520px] opacity-100 pointer-events-auto' : 'mt-0 max-h-0 opacity-0 pointer-events-none' }}">
+                            <li>
+                                <a href="{{ route('list-admin') }}" class="block px-4 py-2 {{ Route::is('list-admin') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">List Admin</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('manage-visitor') }}" class="block px-4 py-2 {{ Route::is('manage-visitor') ? 'text-purple-600 bg-purple-100 border-l-4 border-purple-600' : 'text-gray-700 hover:bg-purple-100 hover:text-purple-600' }} rounded-lg">Manage Visitor</a>
+                            </li>
+                        </ul>
+                    </li>
                     @endif
                 </ul>
             </div>
@@ -121,6 +185,49 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        const collapseButtons = Array.from(document.querySelectorAll('[data-collapse-toggle]'));
+
+        function setExpanded(button, expanded) {
+            const targetId = button.getAttribute('data-collapse-toggle');
+            const target = document.getElementById(targetId);
+            if (!target) return;
+
+            target.classList.toggle('max-h-0', !expanded);
+            target.classList.toggle('opacity-0', !expanded);
+            target.classList.toggle('pointer-events-none', !expanded);
+            target.classList.toggle('mt-0', !expanded);
+
+            target.classList.toggle('max-h-[520px]', expanded);
+            target.classList.toggle('opacity-100', expanded);
+            target.classList.toggle('pointer-events-auto', expanded);
+            target.classList.toggle('mt-2', expanded);
+            button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+
+            const icon = button.querySelector('svg');
+            if (icon) {
+                icon.classList.toggle('rotate-180', expanded);
+            }
+        }
+
+        collapseButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+                if (isExpanded) {
+                    setExpanded(button, false);
+                    return;
+                }
+
+                collapseButtons.forEach((other) => {
+                    if (other !== button) {
+                        setExpanded(other, false);
+                    }
+                });
+                setExpanded(button, true);
+            });
+        });
+    </script>
     @yield('scripts')
 
 </body>

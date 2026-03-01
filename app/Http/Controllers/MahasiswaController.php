@@ -46,7 +46,7 @@ class MahasiswaController extends Controller
             'prodi_id' => $request->prodi_id,
         ]);
 
-        return redirect()->route('tambah-mahasiswa')->with('success', 'Mahasiswa berhasil ditambahkan!');
+        return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan!');
     }
 
     // Menampilkan form untuk mengedit data mahasiswa
@@ -77,7 +77,7 @@ class MahasiswaController extends Controller
             'prodi_id' => $request->prodi_id,
         ]);
 
-        return redirect()->route('tambah-mahasiswa')->with('success', 'Data Mahasiswa berhasil diperbarui!');
+        return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diperbarui!');
     }
 
     // Menghapus data mahasiswa
@@ -86,7 +86,7 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::findOrFail($id);
         $mahasiswa->delete();
 
-        return redirect()->route('tambah-mahasiswa')->with('success', 'Data Mahasiswa berhasil dihapus!');
+        return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus!');
     }
 
     public function getProdiByFaculty($facultyId)

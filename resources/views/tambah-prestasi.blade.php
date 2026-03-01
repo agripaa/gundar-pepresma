@@ -25,7 +25,7 @@
 
         <form action="{{ route('tambah-prestasi') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
             @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-6">
                 <div>
                     <label for="kepesertaan" class="block text-gray-700">Kepesertaan</label>
                     <select name="kepesertaan_lomba" class="bg-gray-200 px-4 py-2 rounded-lg w-full" required>
@@ -68,19 +68,13 @@
                 <label for="lokasi" class="block text-gray-700">Lokasi Kegiatan</label>
                 <input required type="text" name="lokasi_kegiatan" id="lokasi" class="bg-gray-200 px-4 py-2 rounded-lg w-full" placeholder="Masukkan Lokasi Kegiatan">
             </div>
-            <div class="flex justify-between w-full items-center mt-6">
-                <div class="w-4/12">
-                    <label for="mulai" class="block text-gray-700">Tanggal Mulai</label>
-                    <input required type="date" name="tanggal_mulai" id="mulai" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
-
-                </div>
-        
-                <p class="font-semibold">s/d</p>
-
-                <div class="w-4/12">
-                    <label for="akhir" class="block text-gray-700">Tanggal Akhir</label>
-                    <input required type="date" name="tanggal_selesai" id="akhir" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
-                </div>
+            <div class="mt-6">
+                <label for="mulai" class="block text-gray-700">Tanggal Mulai</label>
+                <input required type="date" name="tanggal_mulai" id="mulai" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
+            </div>
+            <div class="mt-6">
+                <label for="akhir" class="block text-gray-700">Tanggal Akhir</label>
+                <input required type="date" name="tanggal_selesai" id="akhir" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
             </div>
             <div class="mt-6">
                 <label for="nama-penyelenggara" class="block text-gray-700">Nama Penyelenggara</label>
@@ -106,7 +100,7 @@
                 <label for="jumlah-perguruan-tinggi" class="block text-gray-700">Jumlah Partisipasi Perguruan Tinggi</label>
                 <input required type="number" min="0" name="jumlah_perguruan_tinggi" id="jumlah-perguruan-tinggi" class="bg-gray-200 px-4 py-2 rounded-lg w-full" placeholder="Masukkan Jumlah Partipasi Perguruan Tinggi">
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="space-y-6 mt-6">
                 <div>
                     <label for="capaian" class="block text-gray-700">Capaian Juara</label>
                     <select name="kategori_juara" id="capaian" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
@@ -134,7 +128,7 @@
                 <div id="mahasiswa-search-results" class="absolute w-full bg-white shadow-md rounded-lg mt-1 z-50 hidden"></div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="space-y-6 mt-6">
                 <div>
                     <label for="nim" class="block text-gray-700">NIM</label>
                     <input required type="number" id="nim" name="nim" class="bg-gray-200 px-4 py-2 rounded-lg w-full" placeholder="NIM Mahasiswa" readonly>
@@ -154,40 +148,31 @@
             </div>
             <div class="mt-6">
                 <label for="nidn" class="block text-gray-700">NIDN</label>
-                <input required type="number" id="nidn" name="nidn" class="bg-gray-200 px-4 py-2 rounded-lg w-6/12" placeholder="NIDN DOSEN PENDAMPING" readonly>
+                <input required type="number" id="nidn" name="nidn" class="bg-gray-200 px-4 py-2 rounded-lg w-full" placeholder="NIDN DOSEN PENDAMPING" readonly>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <div>
-                    <label for="surat_izin" class="block text-gray-700">Unggah Surat Tugas / Izin ( PDF )</label>
-                    <input required type="file" name="surat_izin" id="surat_izin" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
-                </div>
-        
-                <div>
-                    <label for="sertifikat" class="block text-gray-700">Unggah Sertifikat ( PDF )</label>
-                    <input required type="file" name="sertifikat" id="sertifikat" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
-                </div>
+            <div class="mt-6">
+                <label for="surat_izin" class="block text-gray-700">Unggah Surat Tugas / Izin ( PDF )</label>
+                <input required type="file" name="surat_izin" id="surat_izin" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <div>
-                    <label for="upp" class="block text-gray-700">Unggah FOTO UPP ( PNG/JPG/JPEG )</label>
-                    <input required type="file" name="upp" id="upp" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
-                </div>
-        
-                <div>
-                    <label for="rekomendasi" class="block text-gray-700">Unggah Surat Rekomendasi ( PDF )</label>
-                    <input required type="file" name="rekomendasi" id="rekomendasi" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
-                </div>
+            <div class="mt-6">
+                <label for="sertifikat" class="block text-gray-700">Unggah Sertifikat ( PDF )</label>
+                <input required type="file" name="sertifikat" id="sertifikat" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <div>
-                    <label for="nomor_surat_tugas" class="block text-gray-700">Nomor Surat Tugas</label>
-                    <input required type="text" name="no_surat_tugas" id="nomor_surat_tugas" class="bg-gray-200 px-4 py-2 rounded-lg w-full" placeholder="Masukkan Nomor Surat Tugas">
-                </div>
-        
-                <div>
-                    <label for="tanggal_surat_tugas" class="block text-gray-700">Tanggal Surat Tugas</label>
-                    <input required type="date" name="tgl_surat_tugas" id="tanggal_surat_tugas" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
-                </div>
+            <div class="mt-6">
+                <label for="upp" class="block text-gray-700">Unggah FOTO UPP ( PNG/JPG/JPEG )</label>
+                <input required type="file" name="upp" id="upp" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
+            </div>
+            <div class="mt-6">
+                <label for="rekomendasi" class="block text-gray-700">Unggah Surat Rekomendasi ( PDF )</label>
+                <input required type="file" name="rekomendasi" id="rekomendasi" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
+            </div>
+            <div class="mt-6">
+                <label for="nomor_surat_tugas" class="block text-gray-700">Nomor Surat Tugas</label>
+                <input required type="text" name="no_surat_tugas" id="nomor_surat_tugas" class="bg-gray-200 px-4 py-2 rounded-lg w-full" placeholder="Masukkan Nomor Surat Tugas">
+            </div>
+            <div class="mt-6">
+                <label for="tanggal_surat_tugas" class="block text-gray-700">Tanggal Surat Tugas</label>
+                <input required type="date" name="tgl_surat_tugas" id="tanggal_surat_tugas" class="bg-gray-200 px-4 py-2 rounded-lg w-full">
             </div>
             <div class="mt-6">
                 <label for="keterangan" class="block text-gray-700">KETERANGAN ( OPTIONAL )</label>

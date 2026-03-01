@@ -1,63 +1,81 @@
 @extends('layouts.app-admin')
 
 @section('content')
-<div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Tambah Kepesertaan</h2>
-    <form action="{{ url('/kepesertaan') }}" method="POST" class="space-y-4">
-        @csrf
-        <div class="mb-3">
-            <label for="jenis_kepesertaan" class="block text-gray-700">Jenis Kepesertaan :</label>
-            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" id="jenis_kepesertaan" name="jenis_kepesertaan" required>
+@php
+    $kepesertaan = $kepesertaan ?? collect();
+    $kategori = $kategori ?? collect();
+    $prestasi = $prestasi ?? collect();
+    $capaianJuara = $capaianJuara ?? collect();
+    $posisi = $posisi ?? collect();
+
+    $cards = [
+        [
+            'title' => 'Kepesertaan',
+            'count' => $kepesertaan->count(),
+            'route' => route('master-data.kepesertaan'),
+            'description' => 'Jenis kepesertaan untuk lomba.',
+        ],
+        [
+            'title' => 'Kategori Lomba',
+            'count' => $kategori->count(),
+            'route' => route('master-data.kategori'),
+            'description' => 'Daftar kategori lomba.',
+        ],
+        [
+            'title' => 'Prestasi',
+            'count' => $prestasi->count(),
+            'route' => route('master-data.prestasi'),
+            'description' => 'Jenis prestasi yang tersedia.',
+        ],
+        [
+            'title' => 'Capaian Juara',
+            'count' => $capaianJuara->count(),
+            'route' => route('master-data.capaian-juara'),
+            'description' => 'Level capaian juara.',
+        ],
+        [
+            'title' => 'Posisi Peserta',
+            'count' => $posisi->count(),
+            'route' => route('master-data.posisi'),
+            'description' => 'Posisi peserta lomba.',
+        ],
+    ];
+@endphp
+
+<div class="container mx-auto p-6 space-y-8">
+    <div>
+        <h1 class="text-2xl font-semibold text-gray-800">Master Data</h1>
+        <p class="text-sm text-gray-500">Pilih jenis master data untuk melihat dan mengelola detailnya.</p>
+    </div>
+
+    @if (session('success'))
+        <div class="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+            {{ session('success') }}
         </div>
-        <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 transition">Simpan</button>
-    </form>
-    
-    <hr class="my-8 border-t border-gray-200">
+    @endif
 
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Tambah Kategori Lomba</h2>
-    <form action="{{ url('/kategori') }}" method="POST" class="space-y-4">
-        @csrf
-        <div class="mb-3">
-            <label for="kategori" class="block text-gray-700">Masukkan Kategori :</label>
-            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" id="kategori" name="kategori" required>
-        </div>
-        <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 transition">Simpan</button>
-    </form>
-
-    <hr class="my-8 border-t border-gray-200">
-
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Tambah Prestasi Data</h2>
-    <form action="{{ url('/prestasi') }}" method="POST" class="space-y-4">
-        @csrf
-        <div class="mb-3">
-            <label for="prestasi" class="block text-gray-700">Jenis Prestasi :</label>
-            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" id="prestasi" name="prestasi" required>
-        </div>
-        <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 transition">Simpan</button>
-    </form>
-
-    <hr class="my-8 border-t border-gray-200">
-
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Tambah Capaian Juara</h2>
-    <form action="{{ url('/juara') }}" method="POST" class="space-y-4">
-        @csrf
-        <div class="mb-3">
-            <label for="jenis_juara" class="block text-gray-700">Capaian Juara :</label>
-            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" id="jenis_juara" name="jenis_juara" required>
-        </div>
-        <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 transition">Simpan</button>
-    </form>
-
-    <hr class="my-8 border-t border-gray-200">
-
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Tambah Posisi</h2>
-    <form action="{{ url('/posisi') }}" method="POST" class="space-y-4">
-        @csrf
-        <div class="mb-3">
-            <label for="posisi" class="block text-gray-700">Posisi Peserta :</label>
-            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" id="posisi" name="posisi" required>
-        </div>
-        <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 transition">Simpan</button>
-    </form>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        @foreach ($cards as $card)
+            <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">{{ $card['title'] }}</h3>
+                        <p class="mt-1 text-sm text-gray-500">{{ $card['description'] }}</p>
+                    </div>
+                    <span class="rounded-full bg-purple-50 px-2 py-1 text-xs font-semibold text-purple-700">
+                        {{ $card['count'] }} data
+                    </span>
+                </div>
+                <div class="mt-5">
+                    <a
+                        href="{{ $card['route'] }}"
+                        class="inline-flex items-center gap-2 rounded-lg border border-purple-200 bg-purple-50 px-3 py-2 text-sm font-semibold text-purple-700 hover:border-purple-300 hover:bg-purple-100 transition"
+                    >
+                        Lihat Data
+                    </a>
+                </div>
+            </div>
+        @endforeach
+    </div>
 </div>
 @endsection

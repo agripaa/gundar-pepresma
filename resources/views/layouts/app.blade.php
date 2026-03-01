@@ -85,7 +85,7 @@
 
             <!-- Footer Bottom -->
             <div class="text-center mt-10">
-                <p class="text-xs font-medium">&copy; 2024 Pepresma. All Rights Reserved.</p>
+                <p class="text-xs font-medium">&copy; {{ now()->year }} Pepresma. All Rights Reserved.</p>
             </div>
         </div>
     </footer>

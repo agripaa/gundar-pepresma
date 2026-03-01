@@ -40,7 +40,7 @@ class ProdiDataController extends Controller
             'faculty' => $request->faculty,
         ]);
 
-        return redirect()->route('tambah-prodi')->with('success', 'Program Studi berhasil ditambahkan!');
+        return redirect()->route('prodi.index')->with('success', 'Program Studi berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -69,7 +69,7 @@ class ProdiDataController extends Controller
             'faculty' => $request->faculty,
         ]);
 
-        return redirect()->route('tambah-prodi')->with('success', 'Program Studi berhasil diperbarui!');
+        return redirect()->route('prodi.index')->with('success', 'Program Studi berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -77,6 +77,6 @@ class ProdiDataController extends Controller
         $prodi = ProdiData::findOrFail($id);
         $prodi->delete();
 
-        return redirect()->route('tambah-prodi')->with('success', 'Program Studi berhasil dihapus!');
+        return redirect()->route('prodi.index')->with('success', 'Program Studi berhasil dihapus!');
     }
 }

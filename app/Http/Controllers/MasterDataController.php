@@ -13,13 +13,57 @@ class MasterDataController extends Controller
 {
     public function index()
     {
-        $kepesertaan = KepesertaanData::all();
-        $kategori = KategoriData::all();
-        $prestasi = PrestasiData::all();
-        $capaianJuara = CapaianJuara::all();
-        $posisi = PosisiData::all();
-
-        return view('list-master-data', compact('kepesertaan', 'kategori', 'prestasi', 'capaianJuara', 'posisi'));
+        return view('tambah-master-data', $this->getMasterData());
     }
 
+    public function manage()
+    {
+        return view('tambah-master-data', $this->getMasterData());
+    }
+
+    public function kepesertaan()
+    {
+        return view('master-data.kepesertaan', [
+            'kepesertaan' => KepesertaanData::all(),
+        ]);
+    }
+
+    public function kategori()
+    {
+        return view('master-data.kategori', [
+            'kategori' => KategoriData::all(),
+        ]);
+    }
+
+    public function prestasi()
+    {
+        return view('master-data.prestasi', [
+            'prestasi' => PrestasiData::all(),
+        ]);
+    }
+
+    public function capaianJuara()
+    {
+        return view('master-data.capaian-juara', [
+            'capaianJuara' => CapaianJuara::all(),
+        ]);
+    }
+
+    public function posisi()
+    {
+        return view('master-data.posisi', [
+            'posisi' => PosisiData::all(),
+        ]);
+    }
+
+    protected function getMasterData(): array
+    {
+        return [
+            'kepesertaan' => KepesertaanData::all(),
+            'kategori' => KategoriData::all(),
+            'prestasi' => PrestasiData::all(),
+            'capaianJuara' => CapaianJuara::all(),
+            'posisi' => PosisiData::all(),
+        ];
+    }
 }

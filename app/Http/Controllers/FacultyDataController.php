@@ -30,7 +30,7 @@ class FacultyDataController extends Controller
             'name_faculty' => strtoupper($request->name_faculty),
         ]);
 
-        return redirect()->route('tambah-fakultas')->with('success', 'Fakultas berhasil ditambahkan!');
+        return redirect()->route('fakultas.index')->with('success', 'Fakultas berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -51,7 +51,7 @@ class FacultyDataController extends Controller
             'name_faculty' => strtoupper($request->name_faculty),
         ]);
 
-        return redirect()->route('tambah-fakultas')->with('success', 'Fakultas berhasil diperbarui!');
+        return redirect()->route('fakultas.index')->with('success', 'Fakultas berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -59,6 +59,6 @@ class FacultyDataController extends Controller
         $faculty = FacultyData::findOrFail($id);
         $faculty->delete();
 
-        return redirect()->route('tambah-fakultas')->with('success', 'Fakultas berhasil dihapus!');
+        return redirect()->route('fakultas.index')->with('success', 'Fakultas berhasil dihapus!');
     }
 }

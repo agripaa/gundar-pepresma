@@ -36,7 +36,7 @@ class DosenPembimbingController extends Controller
             'NUPTK' => $request->nuptk,
         ]);
 
-        return redirect()->route('tambah-dospem')->with('success', 'Dosen Pembimbing berhasil ditambahkan!');
+        return redirect()->route('dospem.index')->with('success', 'Dosen Pembimbing berhasil ditambahkan!');
     }
     public function getDosenDetails($id)
     {
@@ -74,7 +74,7 @@ class DosenPembimbingController extends Controller
             'NUPTK' => $request->nuptk,
         ]);
 
-        return redirect()->route('tambah-dospem')->with('success', 'Dosen Pembimbing berhasil diperbarui!');
+        return redirect()->route('dospem.index')->with('success', 'Dosen Pembimbing berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -82,6 +82,6 @@ class DosenPembimbingController extends Controller
         $dosen = DosenPembimbing::findOrFail($id);
         $dosen->delete();
 
-        return redirect()->route('tambah-dospem')->with('success', 'Dosen Pembimbing berhasil dihapus!');
+        return redirect()->route('dospem.index')->with('success', 'Dosen Pembimbing berhasil dihapus!');
     }
 }

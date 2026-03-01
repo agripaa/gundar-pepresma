@@ -398,6 +398,57 @@ class PrestasiController extends Controller
         return view('edit-prestasi', compact('prestasi', 'faculties', 'kategori', 'kepesertaan', 'jenisPrestasi', 'capaianJuara', 'posisi', 'mahasiswa', 'dospem', 'fileUpload'));
     }
 
+    public function show($id)
+    {
+        $prestasi = Prestasi::with([
+            'mahasiswa',
+            'mahasiswa.prodi',
+            'dosenPembimbing',
+            'kepesertaan',
+            'kategori',
+            'jenisPrestasi',
+            'capaian',
+            'posisi',
+            'fileUpload',
+            'partisipan',
+        ])->findOrFail($id);
+
+        $files = [];
+        if ($prestasi->fileUpload) {
+            $file = $prestasi->fileUpload;
+            if ($file->url_certificate && Storage::disk('public')->exists($file->url_certificate)) {
+                $files[] = [
+                    'label' => 'Sertifikat',
+                    'type' => 'pdf',
+                    'url' => Storage::url($file->url_certificate),
+                ];
+            }
+            if ($file->url_surat_tugas && Storage::disk('public')->exists($file->url_surat_tugas)) {
+                $files[] = [
+                    'label' => 'Surat Tugas',
+                    'type' => 'pdf',
+                    'url' => Storage::url($file->url_surat_tugas),
+                ];
+            }
+            if ($file->url_upp && Storage::disk('public')->exists($file->url_upp)) {
+                $files[] = [
+                    'label' => 'Foto UPP',
+                    'type' => 'image',
+                    'url' => Storage::url($file->url_upp),
+                ];
+            }
+            if ($file->url_rekomendasi && Storage::disk('public')->exists($file->url_rekomendasi)) {
+                $files[] = [
+                    'label' => 'Surat Rekomendasi',
+                    'type' => 'pdf',
+                    'url' => Storage::url($file->url_rekomendasi),
+                ];
+            }
+        }
+
+        return view('prestasi-detail', compact('prestasi', 'files'));
+    }
+
     public function update(Request $request, $id)
     {
         $request->validate([

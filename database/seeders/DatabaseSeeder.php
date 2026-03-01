@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contact;
+use App\Models\Roles;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +18,24 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $role = Roles::firstOrCreate(['name_role' => 'Admin']);
+
+        User::updateOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'username' => 'testuser',
+                'password' => Hash::make('password'),
+                'role' => $role->id,
+            ]
+        );
+
+        Contact::updateOrCreate(
+            ['email' => 'info@pepresma.test'],
+            [
+                'alamat' => 'Kampus Gunadarma, Depok',
+                'no_telepon' => '81234567890',
+                'map_embed' => 'https://www.google.com/maps/embed?pb=',
+            ]
+        );
     }
 }

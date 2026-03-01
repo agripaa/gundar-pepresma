@@ -80,6 +80,11 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
 // Route CRUD untuk Admin dan Super Admin
 Route::middleware(['auth'])->group(function () {
     Route::get('/list-master-data', [MasterDataController::class, 'index'])->name('list-master-data');
+    Route::get('/master-data/kepesertaan', [MasterDataController::class, 'kepesertaan'])->name('master-data.kepesertaan');
+    Route::get('/master-data/kategori', [MasterDataController::class, 'kategori'])->name('master-data.kategori');
+    Route::get('/master-data/prestasi', [MasterDataController::class, 'prestasi'])->name('master-data.prestasi');
+    Route::get('/master-data/capaian-juara', [MasterDataController::class, 'capaianJuara'])->name('master-data.capaian-juara');
+    Route::get('/master-data/posisi', [MasterDataController::class, 'posisi'])->name('master-data.posisi');
 
     // Contact Routes
     Route::get('/contact/create', [VisitorController::class, 'createContact'])->name('contact.create');
@@ -103,6 +108,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('tambah-prestasi', [PrestasiController::class, 'create'])->name('tambah-prestasi');
     Route::post('/tambah-prestasi', [PrestasiController::class, 'store'])->name('tambah-prestasi.store');    
+    Route::get('/prestasi/{id}', [PrestasiController::class, 'show'])->name('prestasi.show');
     Route::get('/prestasi/{id}/edit', [PrestasiController::class, 'edit'])->name('prestasi.edit');
     Route::put('/prestasi/{id}', [PrestasiController::class, 'update'])->name('prestasi.update');
     Route::delete('/prestasi/{id}', [PrestasiController::class, 'destroy'])->name('prestasi.destroy');
@@ -114,8 +120,8 @@ Route::middleware(['auth'])->group(function () {
     
     // Route untuk form dan menyimpan data mahasiswa
     Route::get('/get-mahasiswa/{id}', [MahasiswaController::class, 'getMahasiswaDetails']);
-    Route::get('/tambah-mahasiswa', [MahasiswaController::class, 'create'])->name('tambah-mahasiswa');
-    Route::post('/tambah-mahasiswa', [MahasiswaController::class, 'store']);
+    Route::get('/mahasiswa', [MahasiswaController::class, 'create'])->name('mahasiswa.index');
+    Route::post('/mahasiswa', [MahasiswaController::class, 'store'])->name('mahasiswa.store');
     Route::get('/mahasiswa/{id}/edit', [MahasiswaController::class, 'edit'])->name('mahasiswa.edit');
     Route::put('/mahasiswa/{id}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
     Route::delete('/mahasiswa/{id}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');
@@ -124,21 +130,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/list-prestasi', [PrestasiController::class, 'index'])->name('list-prestasi');
     
     Route::get('/get-dospem/{id}', [DosenPembimbingController::class, 'getDosenDetails']);
-    Route::get('/tambah-dospem', [DosenPembimbingController::class, 'create'])->name('tambah-dospem');
-    Route::post('/tambah-dospem', [DosenPembimbingController::class, 'store']);
+    Route::get('/dospem', [DosenPembimbingController::class, 'create'])->name('dospem.index');
+    Route::post('/dospem', [DosenPembimbingController::class, 'store'])->name('dospem.store');
     Route::get('/dospem/{id}/edit', [DosenPembimbingController::class, 'edit'])->name('dospem.edit');
     Route::put('/dospem/{id}', [DosenPembimbingController::class, 'update'])->name('dospem.update');
     Route::delete('/dospem/{id}', [DosenPembimbingController::class, 'destroy'])->name('dospem.destroy');
     
-    Route::get('/tambah-fakultas', [FacultyDataController::class, 'create'])->name('tambah-fakultas');
-    Route::post('/tambah-fakultas', [FacultyDataController::class, 'store'])->name('tambah-fakultas');
+    Route::get('/fakultas', [FacultyDataController::class, 'create'])->name('fakultas.index');
+    Route::post('/fakultas', [FacultyDataController::class, 'store'])->name('fakultas.store');
     Route::get('/fakultas/{id}/edit', [FacultyDataController::class, 'edit'])->name('fakultas.edit');
     Route::put('/fakultas/{id}', [FacultyDataController::class, 'update'])->name('fakultas.update');
     Route::delete('/fakultas/{id}', [FacultyDataController::class, 'destroy'])->name('fakultas.destroy');
     
     Route::get('/get-prodi/{prodiId}', [ProdiDataController::class, 'fetchProdi']);
-    Route::get('/tambah-prodi', [ProdiDataController::class, 'create'])->name('tambah-prodi');
-    Route::post('/tambah-prodi', [ProdiDataController::class, 'store']);
+    Route::get('/prodi', [ProdiDataController::class, 'create'])->name('prodi.index');
+    Route::post('/prodi', [ProdiDataController::class, 'store'])->name('prodi.store');
     Route::get('/prodi/{id}/edit', [ProdiDataController::class, 'edit'])->name('prodi.edit');
     Route::put('/prodi/{id}', [ProdiDataController::class, 'update'])->name('prodi.update');
     Route::delete('/prodi/{id}', [ProdiDataController::class, 'destroy'])->name('prodi.destroy');
@@ -157,9 +163,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/{id}/update', [AdminController::class, 'update'])->name('admin.update'); // Update admin
     Route::delete('/admin/{id}/delete', [AdminController::class, 'destroy'])->name('admin.delete'); // Delete admin
     
-    Route::get('/tambah-master-data', function () {
-        return view('tambah-master-data');
-    })->name('tambah-master-data');
+    Route::get('/tambah-master-data', [MasterDataController::class, 'manage'])->name('tambah-master-data');
 });
 
 // Route untuk logout

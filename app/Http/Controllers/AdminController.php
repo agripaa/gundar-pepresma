@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Prestasi;
+use App\Models\Mahasiswa;
+use App\Models\DosenPembimbing;
+use App\Models\FacultyData;
+use App\Models\ProdiData;
+use App\Models\KategoriData;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -98,6 +104,15 @@ class AdminController extends Controller
 
     public function laporan()
     {
+        $stats = [
+            'prestasi' => Prestasi::count(),
+            'mahasiswa' => Mahasiswa::count(),
+            'dosen' => DosenPembimbing::count(),
+            'fakultas' => FacultyData::count(),
+            'prodi' => ProdiData::count(),
+            'kategori' => KategoriData::count(),
+        ];
+
         // Ambil data prestasi mahasiswa berdasarkan bulan dari tanggal selesai kegiatan
         $prestasiPerBulan = Prestasi::selectRaw('MONTH(tanggal_selesai) as bulan, COUNT(*) as jumlah')
             ->groupBy('bulan')
@@ -121,6 +136,12 @@ class AdminController extends Controller
             ];
         }
 
-        return view('laporan', compact('prestasiData'));
+        $prestasiByKategori = KategoriData::leftJoin('prestasi', 'prestasi.kategori_lomba', '=', 'kategori_data.id')
+            ->select('kategori_data.kategori', DB::raw('COUNT(prestasi.id) as jumlah'))
+            ->groupBy('kategori_data.kategori')
+            ->orderBy('kategori_data.kategori')
+            ->get();
+
+        return view('laporan', compact('prestasiData', 'prestasiByKategori', 'stats'));
     }
 }
